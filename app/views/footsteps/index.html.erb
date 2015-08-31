@@ -1,0 +1,16 @@
+<%= render 'shared/content_title', title: 'Follow the Footsteps <small>See Where Your Fellow Journeymen Are Headed</small>'.html_safe %>
+<% @footsteps.each do |footstep| %>
+  <%= render 'footstep', footstep: footstep unless footstep.private? %>
+<% end %>
+
+<div align='center'>
+  <ul class="pagination">
+    <% @pages.times do |page| %>
+      <% if (params[:offset].nil? && page == 0) || params[:offset].to_s == (page * Footstep::PER_PAGE).to_s %>
+        <li class='disabled'><a><%= "#{page+1}" %></a></li>
+      <% else %>
+      <li><%= link_to "#{page+1}", footsteps_path(offset: page * Footstep::PER_PAGE) %></li>
+      <% end %>
+    <% end %>
+  </ul>
+</div>

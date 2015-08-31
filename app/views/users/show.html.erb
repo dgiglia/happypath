@@ -1,0 +1,52 @@
+<% header = "Profile: #{@user.username}".html_safe %>
+<%= render 'shared/content_title', title: header %>
+
+<div class='well span8'>
+  <p><strong>Username:</strong> <%= @user.username %></p>
+  <p><strong>About me:</strong> <%= @user.profile %></p>
+  <p><strong>Time Zone:</strong> <%= @user.time_zone %></p>
+  <p><strong>Joined:</strong> <%= display_datetime(@user.created_at) %></p>
+  <hr>
+  <% if logged_in? && current_user == @user %>
+    <%= link_to edit_user_path(current_user) do %>
+      <span class='glyphicon glyphicon-edit'></span> Edit Profile
+    <% end %>
+  <% end %>
+</div>
+
+<div>
+  <ul class='nav nav-tabs'>
+    <li class='<%= 'active' if params[:tab].nil? %>'>
+      <%= link_to "My Path: #{@user.footsteps.size} Footsteps", user_path(@user) %>
+    </li>
+    <li class='<%= 'active' if params[:tab] == 'milestones' %>'>
+      <%= link_to "My Milestones", user_path(@user, tab: 'milestones') %>
+    </li>
+    <li class='<%= 'active' if params[:tab] == 'comments' %>'>
+      <%= link_to "My Comments", user_path(@user, tab: 'comments') %>
+    </li>
+  </ul>
+</div>
+
+<div>
+  <% if params[:tab].nil? %>  
+    <% (@user.footsteps.sort_by{|x| x.created_at}).reverse.each do |footstep| %>
+      <%= render 'footsteps/footstep', footstep: footstep %>
+    <% end %>
+  <% elsif params[:tab] == 'milestones' %>
+    <div class='panel panel-default'>
+      <div class='panel-heading'>
+        <h4>Every ten footsteps completed earns you a milestone award! Look how far you've come!</h4>
+      </div>
+      <div class='panel-body'>
+        <% (@user.count_completed(@user.footsteps) / 10).times do %>
+          <%= image_tag("award.gif", :alt => "award") %>
+        <% end %>
+      </div>
+    </div>
+  <% elsif params[:tab] == 'comments' %>
+    <% @user.comments.each do |comment| %>
+      <%= render 'comments/comment', comment: comment, show_footstep: true %>
+    <% end %>
+  <% end %>
+</div>

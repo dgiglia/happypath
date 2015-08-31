@@ -1,0 +1,6 @@
+<% header = link_to('All Footsteps', footsteps_path) + " &raquo; #{@category.name}".html_safe %>
+<%= render 'shared/content_title', title: header %>
+
+<% @category.footsteps.each do |footstep| %>
+  <%= render '/footsteps/footstep', footstep: footstep %>
+<% end %>

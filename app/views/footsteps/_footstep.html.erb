@@ -1,0 +1,55 @@
+<div id='footstep'>
+  <% if !footstep.private? || (logged_in? && (current_user == footstep.user)) %>
+    <div class="panel panel-<%= (logged_in? && current_user == footstep.user && footstep.completed?) ? "success" : "default" %>">
+      <div class='panel-heading'>
+        <div class='row'>
+          <div class='col-sm-8'>
+            <%= render footstep.categories %>
+          </div>
+
+          <div class='col-sm-4' id='marker'>
+            <% if logged_in? && current_user == footstep.user %>
+              <% if footstep.private? %>
+                <span class='label label-danger'><span class='glyphicon glyphicon-ban-circle'></span> Private</span>
+              <% end %>
+              <% if footstep.completed? %>
+                <span class='label label-success'><span class='glyphicon glyphicon-check'></span> Complete</span>
+              <% else %>
+                <span class='label label-default'><span class='glyphicon glyphicon-bell'></span> Incomplete</span>
+              <% end %>              
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+      <div class='panel-body'>
+        <h4><%= link_to footstep.title, footstep_path(footstep) %></h4> 
+        <p>
+          <span class="quiet">created by:</span> 
+            <%= link_to footstep.user.username, user_path(footstep.user) %>
+          <span class="quiet"><small>
+            at <%= display_datetime(footstep.created_at) %>
+          </small></span>
+
+          <span><small>
+            <%= link_to("#{footstep.comments.size} comments", footstep_path(footstep)) %>
+          </small></span>
+        </p>
+
+        <% if logged_in? && current_user == footstep.user %>
+          <div class='btn btn-primary'>
+            <span class='glyphicon glyphicon-edit'></span><%= link_to ' Edit', edit_footstep_path(footstep) %>
+          </div>
+
+          <div class='btn btn-danger'>
+            <span class='glyphicon glyphicon-trash'></span><%= link_to ' Delete', footstep, method: :delete %>
+          </div>
+
+          <div class='btn btn-default'>
+            <span class='glyphicon glyphicon-road'></span><%= link_to ' My happypath', user_path(current_user) %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div> 

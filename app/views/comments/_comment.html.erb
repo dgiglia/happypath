@@ -1,0 +1,15 @@
+<% show_footstep ||= false %>
+
+<div class='well col-sm-8'>
+  <p>"<%= comment.body %>"</p>
+  <p>
+    <span class='quiet'>
+      <% if show_footstep %>
+        on <%= link_to comment.footstep.title, footstep_path(comment.footstep) %>
+        <br/>
+      <% end %>
+      comment by: <%= link_to comment.user.username, user_path(comment.user) %>
+      <small>at <%= display_datetime(comment.created_at) %></small>
+    </span>
+  </p>
+</div>

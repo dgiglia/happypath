@@ -1,0 +1,11 @@
+<% if obj.errors.any? %>
+  <div class="alert alert-error">
+    <h5>Did not save due to the following error(s):</h5>
+    <ul>
+      <%= obj.errors.full_messages do |msg| %>
+        <li><%= msg %></li>
+        <br/>
+      <% end %>
+    </ul>
+  </div>
+<% end %>

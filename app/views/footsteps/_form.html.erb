@@ -1,0 +1,41 @@
+<%= render 'shared/errors', obj: @footstep %>
+
+<div class='form-group'>
+  <%= form_for @footstep do |f| %>
+    <div class='form-group col-sm-8'>
+      <%= f.label :title, class: 'control-label' %>
+      <%= f.text_field :title, class: 'form-control' %>
+    </div>
+  
+    <div class='form-group col-sm-8'>
+      <%= f.label :note, class: 'control-label' %>
+      <%= f.text_area :note, rows: 10, class: 'form-control' %>
+    </div>
+  
+    <div class='form-group col-sm-8'>      
+      <%= f.label :private, class: 'control-label' %> (Footsteps default to public. Please check box to make private.)<br/>
+      <%= f.check_box :private %> 
+    </div>
+  
+    <% unless @footstep.new_record? %>
+      <div class='form-group col-sm-8'>
+        <%= f.label :completed, class: 'control-label' %><br/>
+        <%= f.check_box :completed %>
+      </div>
+    <% end %>
+  
+    <div class='form-group col-sm-8'>
+      <%= f.label "Categories", class: 'control-label' %><br/>
+      <%= f.collection_check_boxes :category_ids, Category.all.sort{|a,b| a['name'] <=> b['name']}, :id, :name do |box| %>
+        <%= box.label(class: 'checkbox-inline') {box.check_box(class: 'checkbox') + box.text} %>
+      <% end %>
+    </div>
+  
+    <div class='col-sm-8'>
+      <%= f.submit(@footstep.new_record? ? "Create Footstep" : "Update Footstep", class: "btn btn-primary") %>
+      <div class='btn btn-default'>
+        <%= link_to 'Cancel', @footstep.new_record? ? root_path : footstep_path(@footstep) %>
+      </div>
+    </div>
+  <% end %>
+</div>

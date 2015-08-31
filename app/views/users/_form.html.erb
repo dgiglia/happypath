@@ -1,0 +1,35 @@
+<%= render 'shared/errors', obj: @user %>
+
+<div class='form-group'>
+  <%= form_for @user do |f| %>
+    <div class='form-group col-sm-8'>
+      <%= f.label :username, class: 'control-label' %>
+      <%= f.text_field :username, class: 'form-control' %>
+    </div>
+    <div class='form-group col-sm-8'>
+      <%= f.label :password, class: 'control-label' %>
+      <%= f.password_field :password, class: 'form-control' %>
+    </div>
+    <div class='form-group col-sm-8'>
+      <%= f.label :profile, class: 'control-label' %>
+      <%= f.text_area :profile, rows: 10, class: 'form-control' %>
+    </div>
+    <div class='form-group col-sm-8'>
+      <%= f.label :time_zone, class: 'control-label' %>
+      <%= f.time_zone_select :time_zone, ActiveSupport::TimeZone.us_zones, default: Time.zone.name, class: 'form-control' %>
+    </div>
+    <div class='form-group col-sm-8'>
+      <%= f.submit (@user.new_record? ? "Register" : "Update Profile"), class: "btn btn-primary" %>
+      <p class='btn btn-default'>
+        <%= link_to 'Cancel', root_path %>
+      <br/>
+      </p>
+      <p class='help-block'>    
+        <% if !logged_in? %>
+        Already a user? 
+        <%= link_to 'Log In', login_path %>
+        <% end %>
+      </p>
+  </div>
+  <% end %>
+</div>
