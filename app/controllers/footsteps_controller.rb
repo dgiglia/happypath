@@ -4,7 +4,7 @@ class FootstepsController < ApplicationController
   before_action :require_same_user, only: [:edit, :update, :destroy]
   
   def index
-    @footsteps = (Footstep.all.limit(Footstep::PER_PAGE).offset(params[:offset])).sort_by{|x| x.created_at}.reverse
+    @footsteps = (Footstep.all.where(private: false).limit(Footstep::PER_PAGE).offset(params[:offset])).sort_by{|x| x.created_at}.reverse
     @pages = (Footstep.all.size / Footstep::PER_PAGE) 
     @pages += 1 if (Footstep.all.size % Footstep::PER_PAGE) > 0
   end
