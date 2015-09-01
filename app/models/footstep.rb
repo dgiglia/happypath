@@ -11,13 +11,5 @@ class Footstep < ActiveRecord::Base
   validates :title, presence: true
   
   sluggable_column :title
-  
-  def completed?
-    self.completed == true
-  end
-  
-  def private?
-    self.private == true
-  end
-    
+
 end

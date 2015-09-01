@@ -39,7 +39,7 @@
         <h4>Every ten footsteps completed earns you a milestone award! Look how far you've come!</h4>
       </div>
       <div class='panel-body'>
-        <% (@user.count_completed(@user.footsteps) / 10).times do %>
+        <% (@user.count_completed / 10).times do %>
           <%= image_tag("award.gif", :alt => "award") %>
         <% end %>
       </div>

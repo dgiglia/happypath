@@ -18,15 +18,8 @@ class User < ActiveRecord::Base
     self.role == 'moderator'
   end
   
-  def count_completed(footsteps)  
-    count = 0
-    footsteps.each do |step|
-      if step.completed?
-        count += 1
-      end
-      count
-    end
-    count
+  def count_completed
+    footsteps.where(completed: true).count
   end
 
 end

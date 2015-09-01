@@ -1,5 +1,6 @@
 <% show_footstep ||= false %>
 
+<% if !comment.footstep.private? %>
 <div class='well col-sm-8'>
   <p>"<%= comment.body %>"</p>
   <p>
@@ -13,3 +14,4 @@
     </span>
   </p>
 </div>
+<% end %>
