@@ -62,3 +62,11 @@ a:hover {
 .jumbotron {
   background:rgba(255,255,255,0.7);
 }
+
+#footer {
+    clear: both;
+    position: relative;
+    z-index: 10;
+    height: 3em;
+    margin-top: -3em;
+}
