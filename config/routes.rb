@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   resources :footsteps do
     resources :comments, only: [:create]
     member do
-      patch 'completed', to: 'footsteps#mark_completed'
+      post 'copy'
     end
   end
   

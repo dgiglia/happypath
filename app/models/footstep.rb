@@ -4,7 +4,7 @@ class Footstep < ActiveRecord::Base
   include Sluggable
   
   belongs_to :user
-  has_many :comments
+  has_many :comments, dependent: :destroy
   has_many :footstep_categories
   has_many :categories, through: :footstep_categories
   
@@ -19,6 +19,5 @@ class Footstep < ActiveRecord::Base
   def private?
     self.private == true
   end
-  
-  
+    
 end

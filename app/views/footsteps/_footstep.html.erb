@@ -48,6 +48,10 @@
           <div class='btn btn-default'>
             <span class='glyphicon glyphicon-road'></span><%= link_to ' My happypath', user_path(current_user) %>
           </div>
+        <% elsif logged_in? && (footstep.user != current_user) %>
+          <div class='btn btn-success'>
+            <span class='glyphicon glyphicon-plus'></span><%= link_to ' Add To My happypath', copy_footstep_path(id: footstep.id), method: 'post' %>
+          </div>
         <% end %>
       </div>
     </div>

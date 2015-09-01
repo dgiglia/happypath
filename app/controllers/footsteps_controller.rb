@@ -47,6 +47,13 @@ class FootstepsController < ApplicationController
     end
   end
   
+  def copy
+    @existing_footstep = Footstep.find_by(id: params[:id])
+    @footstep = Footstep.new(@existing_footstep.attributes)
+    @footstep.user_id = current_user.id
+    @footstep.category_ids = @existing_footstep.category_ids
+  end
+  
   private
   def footstep_params
     params.require(:footstep).permit!

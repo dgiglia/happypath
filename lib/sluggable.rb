@@ -15,7 +15,7 @@ module Sluggable
     obj = self.class.find_by slug: the_slug
     count = 2
     while obj && obj != self
-      the slug = append_suffix(the_slug, count)
+      the_slug = append_suffix(the_slug, count)
       obj = self.class.find_by slug: the_slug
       count += 1
     end
